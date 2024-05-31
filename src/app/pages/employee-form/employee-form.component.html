@@ -1,0 +1,112 @@
+<!-- <h5 class="mb-5 text-lg font-bold tracking-tight text-gray-900 dark:text-white ">Employee Details</h5>
+<form [formGroup]="employeeForm" class="w-full" (ngSubmit)="onSubmit()" novalidate>
+  <div class="mb-5">
+    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+    <input type="text" id="name" class="form-control" placeholder="Name" formControlName="name">
+    @if (employeeForm.get('name')?.hasError('required') && employeeForm.get('name')?.touched) {
+    <div class="form-error">Name is required</div>
+    }
+  </div>
+  <div class="mb-5">
+    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email Address</label>
+    <input type="email" id="email" class="form-control" placeholder="Email Address" formControlName="email">
+    @if (employeeForm.get('email')?.hasError('required') && employeeForm.get('email')?.touched) {
+    <div class="form-error">Email is required</div>
+    }
+  </div>
+  <div class="mb-5">
+    <label for="mobile" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mobile</label>
+    <input type="text" id="mobile" class="form-control" placeholder="Mobile" formControlName="mobile">
+    @if (employeeForm.get('mobile')?.hasError('required') && employeeForm.get('mobile')?.touched) {
+    <div class="form-error">Mobile is required</div>
+    }
+  </div>
+  <button type="submit"
+    class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
+  <button type="button" (click)="onClose()"
+    class="text-white  ms-2 bg-gray-700 hover:bg-gray-800 font-medium rounded-lg w-full sm:w-auto px-5 py-2.5 text-center">Cancel</button>
+</form> -->
+
+<form class="example-form" [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+
+  <mat-form-field style="width:350px;">
+    <mat-label>Select an item</mat-label>
+    <mat-select [formControl]="itemControl" placeholder="Select an item" (selectionChange)="onItemSelectionChange($event)">
+      <mat-select-trigger>{{ getSelectedItemViewValue() }}</mat-select-trigger>
+
+      <mat-option>
+        <lib-mat-select-search
+          [list]="originalItems"
+          [searchProperties]="['Item_Name', 'Item_ID']"
+          (filtered)="filteredItems = $event"
+        >
+        </lib-mat-select-search>
+      </mat-option>
+
+      <mat-option *ngFor="let item of filteredItems" [value]="item['Item_ID']">
+        <div class="item-container">
+          <span>{{ item['Item_Name'] }}</span>
+          <span>{{ item['Item_ID'] }}</span>
+          
+          
+        </div>
+      </mat-option>
+
+    </mat-select>
+  </mat-form-field>
+  <div *ngIf="selectedItemDetails">
+    <label for="selectedItemName">Selected Item Name: </label>{{ selectedItemDetails.Item_Name }}<br>
+    <label for="selectedItemID">Selected Item ID: </label>{{ selectedItemDetails.Item_ID }}<br>
+    <label for="selectedItemRate">Selected Item Rate: </label>{{ selectedItemDetails.Rate }}<br>
+    <input
+    type="number"
+    class="form-control"
+    id="input1"
+    placeholder="1"
+    formControlName="quantity"
+    
+  />
+  </div>
+  <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg w-full sm:w-auto px-5 py-2.5 text-center" (click)="sendSelectedItem()">Submit</button>
+  <button type="button" (click)="onClose()" class="text-white ms-2 bg-gray-700 hover:bg-gray-800 font-medium rounded-lg w-full sm:w-auto px-5 py-2.5 text-center">Cancel</button>
+
+</form>
+
+
+<!-- <form class="example-form" [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+
+
+  <mat-select [formControl]="itemControl" placeholder="Select an item">
+    <mat-select-trigger>{{ getSelectedItemViewValue() }}</mat-select-trigger>
+  
+    <mat-option (keydown.backspace)="onBackspace()">
+      <lib-mat-select-search
+        [list]="filteredItems"
+        [searchProperties]="['Item_Name', 'Item_ID']"
+        (filtered)="filteredItems = $event"
+      >
+      </lib-mat-select-search>
+    </mat-option>
+  
+    <mat-option *ngFor="let item of filteredItems" [value]="item['Item_ID']">
+      <div class="item-container">
+        <span>{{ item['Item_Name'] }}</span>
+        <span>{{ item['Item_ID'] }}</span>
+      </div>
+    </mat-option>
+  </mat-select>
+  
+  <button
+    type="submit"
+    class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg w-full sm:w-auto px-5 py-2.5 text-center"
+  >
+    Submit
+  </button>
+  <button
+    type="button"
+    (click)="onClose()"
+    class="text-white ms-2 bg-gray-700 hover:bg-gray-800 font-medium rounded-lg w-full sm:w-auto px-5 py-2.5 text-center"
+  >
+    Cancel
+  </button>
+</form> -->

@@ -1,0 +1,67 @@
+<div class="container">
+  <!-- Other HTML content -->
+  <div class="row">
+    <div class="col-md-1 col-sm-1 col-1"></div>
+    <div class="col-md-10 col-sm-10 col-10">
+      <button (click)="openModel()" type="button" class="btn btn-primary btn-grad" style="width: 100%; border-radius: 50px; margin-top: 10px; margin-left: 0;">Primary</button>
+    </div>
+    <div class="col-md-1 col-sm-1 col-1"></div>
+  </div>
+
+  <!-- <div *ngIf="selectedItem">
+    <p> {{ selectedItem.Item_Name }}</p>
+    <p> {{ selectedItem.Item_ID }}</p>
+    <p> {{ selectedItem.Rate }}</p>
+  </div> -->
+
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg" style="margin-top: 5px; max-height: 600px;">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <tr>
+          <th scope="col" class="px-6 py-3">Item Name</th>
+          <th scope="col" class="px-6 py-3">Qty</th>
+          <th scope="col" class="px-6 py-3">Rate</th>
+          <th scope="col" class="px-6 py-3">Discount</th>
+          <th scope="col" class="px-6 py-3">Amount</th>
+          <th scope="col" class="px-6 py-3"><span class="sr-only">Edit</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of itemsArray;" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ item.Item_Name }}</th>
+          <td class="px-6 py-4">{{ item.Quantity }}</td>
+          <td class="px-6 py-4">{{ item.Rate }}</td>
+          <td class="px-6 py-4">{{ item.Discount }}</td>
+          <td class="px-6 py-4">{{ (item.Quantity || 0)  * ((item.Rate || 0) - (item.Discount || 0))}}</td>
+          <td class="px-6 py-4 text-right">
+            <!-- <button type="button" (click)="item.Item_ID && loadEmployee(itemsArray)" class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-4">Edit</button> -->
+            <button type="button" (click)="item.Item_ID && deleteItems(item.Item_ID)" class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+   
+  </div>
+        <div class="row">
+          <div class="col-md-6 col-sm-6 col-6">
+            <label for="inputPassword" class="col-sm-2 col-form-label" style="float:right; margin-top: 5px; margin-right: -10px; font-size: large;">Total</label>
+         </div>
+          <div class="col-md-6 col-sm-6 col-6">
+             <input class="form-control" type="text" placeholder="{{ calculateTotal() }}" aria-label="default input example" style="margin-top:5px">
+          </div>
+        </div>
+</div>
+
+<footer>
+  <div class="row">
+    <div class="col-md-1 col-sm-1 col-1"></div>
+    <div class="col-md-10 col-sm-10 col-10">
+      <button routerLink="/Vehicle-info" type="button" class="btn btn-primary btn-grad" style="float: right; width: 30px; height: 20px; text-align: center; padding-bottom: 30px; padding-right: 70px;">Next</button>
+    </div>
+    <div class="col-md-1 col-sm-1 col-1"></div>
+  </div>
+</footer>
+
+<app-model [isOpen]="isModelOpen" (closeModel)="closeModel()">
+  <app-employee-form (onCloseModel)="closeModel()" (onSave)="handleSave($event)"></app-employee-form>
+</app-model>
